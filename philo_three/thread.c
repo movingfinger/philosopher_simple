@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:58:10 by sako              #+#    #+#             */
-/*   Updated: 2020/06/11 12:53:34 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/13 12:00:54 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	philosopher (t_philosophers *philo, int *death)
 	i = 0;
 	pthread_create(&philo->thread_philo_time, NULL, philo_life, philo);
 	pthread_create(&thread, NULL, timer, &time_basic);
-	//while ((i = food_on_table(philo)))
 	while (*philo->death > 0)
 	{
 		philo->state = 1;
@@ -59,21 +58,10 @@ void	philosopher (t_philosophers *philo, int *death)
 		printf("%lld ms - Philosopher %d is sleeping\n", timestamp[philo->pos], philo->pos);
 		usleep(sleep_seconds * 1000);
 	}
-
-	//if (!i)
-	//{
-	//	philo->state = 4;
-	//	printf("%lld ms - Philosopher %d died due to lack of food\n", timestamp[philo->pos], philo->pos);
-	//	exit (0);
-	//}
-	//if (food_limit == 0)
-	//	ft_print_error("No food left!");
 	*philo->death = -1;
 	exit (0);
-	//return (NULL);
 }
 
-//void Spawn(t_philosophers *philo, sem_t *sem, long *time, int i)
 void Spawn(int *sem_c, int *death)
 {
 	t_philosophers *philo;

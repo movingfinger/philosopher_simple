@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:39:49 by sako              #+#    #+#             */
-/*   Updated: 2020/06/11 12:53:31 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/13 12:00:38 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,11 @@ typedef struct	s_philosophers
 	int			*death;
 	int			len;
 	char		*print_str;
-	//sem_t		*sem;
 	int			*sem_val;
 	pthread_t	thread_philo;
 	pthread_t	thread_philo_time;
 }				t_philosophers;
 
-//void			*philosopher (void *arg);
 void			philosopher (t_philosophers *philo, int *death);
 void			grab_fork (t_philosophers *philo, int fork, int side);
 void			down_forks (int, int);
@@ -73,7 +71,6 @@ int				food_on_table (t_philosophers *philo);
 void			get_token ();
 void			return_token ();
 void			eat(t_philosophers *philo);
-//void			Spawn(t_philosophers *philo, sem_t *sem, long *time, int i);
 void			Spawn(int *sem_c, int *death);
 
 void			*philo_life(void *arg);
