@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:39:49 by sako              #+#    #+#             */
-/*   Updated: 2020/06/13 12:00:38 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 12:17:58 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <signal.h>
 #include <sys/time.h>
-#include <sys/stat.h>
+//#include <sys/stat.h>
 #include <fcntl.h>
 
 //#define DELAY 5000
@@ -39,42 +40,54 @@
 # define R_FORK "right"
 
 long long		num_philo;				// number of philosophers
-long long		num_can_eat;				// num_philo - 1 for token system
+long long		num_can_eat;			// num_philo - 1 for token system
 long long		sleep_seconds;			// time to sleep
-long long		eat_seconds;				// time to eat
-long long		die_seconds;				// time to die
+long long		eat_seconds;			// time to eat
+long long		die_seconds;			// time to die
 long long		food_limit;				// number of times each philosopher must eat. If -1, it means not defined.
-long long		*timestamp;
-long			time_basic;
+long long		start_time;
 int				check_food;
 int				sem_val;
+sem_t			*sem_fork;
+sem_t			*sem_print;
+sem_t			*sem_dead;
+sem_t			*sem_dead_report;
+
+/*
+** state 0: eating
+** state 1: thinking
+** state 2: sleeping
+** state 3: died timeover
+** state 4: died no food
+** state 5: grab fork
+** state 6: infinite food
+** state 7: check food left
+** state 8: food limit reached
+*/
 
 typedef struct	s_philosophers
 {
 	int			pos;
 	int			eat_count;
 	int			state;
-	long		*time;
+	long long	last_time;
+	long long	limit;
+	long long	*time;
 	int			*death;
-	int			len;
-	char		*print_str;
-	int			*sem_val;
-	pthread_t	thread_philo;
-	pthread_t	thread_philo_time;
+	int			lfork;
+	int			rfork;
+	pid_t		pid;
+	sem_t		*sem;
+	sem_t		*food_limit;
 }				t_philosophers;
 
-void			philosopher (t_philosophers *philo, int *death);
 void			grab_fork (t_philosophers *philo, int fork, int side);
 void			down_forks (int, int);
 
-int				food_on_table (t_philosophers *philo);
-void			get_token ();
-void			return_token ();
 void			eat(t_philosophers *philo);
-void			Spawn(int *sem_c, int *death);
+void			Spawn(t_philosophers *philo);
 
-void			*philo_life(void *arg);
-void			*timer(void *var);
+long long		timer(void);
 
 void			ft_print_error(const char *str);
 long long		ft_atol (const char *str);
@@ -85,4 +98,10 @@ char			*ft_strnew(size_t size);
 char			*ft_ltoa_base(long long nbr, int base);
 void			set_param(char **av, int ac);
 
+void			print_message(t_philosophers *philo, int num);
+
+void			grab_forks(t_philosophers *philo);
+void			drop_forks(t_philosophers *philo);
+
+char			*make_semaphore(const char *str, int i);
 #endif

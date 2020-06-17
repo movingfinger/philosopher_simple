@@ -6,11 +6,15 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:18:01 by sako              #+#    #+#             */
-/*   Updated: 2020/06/11 12:51:08 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/16 23:30:57 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+**	If number of philosophers is over 100, print error and exit.
+*/
 
 void error_check(char **arg)
 {
