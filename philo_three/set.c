@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:18:01 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 21:38:36 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 22:32:10 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,43 @@ int init_semaphore(void)
 	if (!(sem_dead_report = ft_sem_open("SEM_DEAD_REPORT", 1)))
 		ft_print_error("Fail to make semaphore for report dead");	
 	return (0);
+}
+
+char	*make_semaphore(const char *str, int i)
+{
+	char	*c_sem;
+	char	*pos;
+	int		len;
+
+	pos = ft_ltoa_base(i, 10);
+	len = ft_strlen(str) + ft_strlen(pos);
+	c_sem = ft_strnew(len);
+	ft_strlcat(c_sem, str, len);
+	ft_strlcat(c_sem, pos, len);
+	sem_unlink(c_sem);
+	free(pos);
+	return (c_sem);
+}
+
+int clear_philosopher(t_philosophers *philo)
+{
+	int	i;
+
+	i = 0;
+	sem_unlink("SEM_FORK");
+	sem_unlink("SEM_PRINT");
+	sem_unlink("SEM_DEAD");
+	sem_unlink("SEM_DEAD_REPORT");
+	if (philo)
+	{
+		i = 0;
+		while (i < num_philo)
+		{
+			make_semaphore("SEM_PHILO", i);
+			make_semaphore("SEM_FOOD", i);
+			i++;
+		}
+		free(philo);
+	}
+	return (1);
 }

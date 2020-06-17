@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:59:28 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 21:43:45 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 22:20:45 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,20 @@ unsigned int	ft_nbrlen(long long num, int base)
 		len++;
 	}
 	return (len);
+}
+
+char	*ft_strcpy(char *dst, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }
 
 char	*ft_strnew(size_t size)
