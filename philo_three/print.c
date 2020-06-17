@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:39:41 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 22:31:21 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 22:37:10 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void print_message(t_philosophers *philo, int num)
 {
 	sem_wait(sem_print);
 	sem_wait(sem_dead_report);
-	printf("%lld\t", timer() - start_time);
+	printf("%lld ms - Philosopher ", timer() - start_time);
 	if (num != 5)
 		printf("%d", philo->pos + 1);
 	get_message(num);
