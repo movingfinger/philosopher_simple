@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:58:10 by sako              #+#    #+#             */
-/*   Updated: 2020/06/11 12:48:41 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 08:02:34 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int food_on_table (t_philosophers *philo)
 {
+	printf("%lld timestamp\n", timestamp[0]);
 	if (food_limit == -1)
 	{
 		philo->state = 6;

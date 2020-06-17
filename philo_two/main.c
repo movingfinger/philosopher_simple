@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:39:57 by sako              #+#    #+#             */
-/*   Updated: 2020/06/11 12:53:41 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 08:08:59 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int main(int ac, char **av)
 	time_basic = 0;
 	t_philo = (t_philosophers *)malloc(sizeof(t_philosophers) * num_philo);
 	timestamp = (long long *)malloc(sizeof(long long) * num_philo);
+	for (int j = 0; j < num_philo; j++)
+		timestamp[j] = 0;
 	sem_init(&sem, 0, num_philo);
 
 	pthread_create(&t_time, NULL, timer, &time_basic);

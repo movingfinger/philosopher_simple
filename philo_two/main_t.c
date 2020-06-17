@@ -6,11 +6,12 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:59:28 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 07:57:27 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 07:53:09 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 long long ft_atol (const char *str)
 {
@@ -111,31 +112,12 @@ char			*ft_ltoa_base(long long nbr, int base)
 	return (str);
 }
 
-/*
-char			*ft_ltoa_base(long long value, int base)
+int main(int ac, char **av)
 {
-	int			len;
-	long long	nbr;
-	char		*str;
-	char		*s_base;
-
-	s_base = "0123456789abcdef";
-	len = (int)ft_nbrlen(value, base);
-	nbr = value;
-	if (nbr < 0)
+	if (ac == 2)
 	{
-		if (base == 10)
-			len += 1;
-		nbr *= -1;
+		int num = ft_atol(av[1]);
+		printf("%d!\n", num);
 	}
-	str = malloc(len);
-	while (len > 0)
-	{
-		str[--len] = s_base[nbr % base];
-		nbr /= base;
-	}
-	if (value < 0 && base == 10)
-		str[0] = '-';
-	return (str);
+	return (0);
 }
-*/
