@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:18:01 by sako              #+#    #+#             */
-/*   Updated: 2020/06/16 23:30:57 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 19:41:59 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void set_param(char **av, int ac)
 	eat_seconds = ft_atol(av[3]);
 	sleep_seconds = ft_atol(av[4]);
 	
-	num_can_eat = num_philo - 1;
 	printf("Number of philosopher is %lld\n", num_philo);
 	printf("Die time is %lld ms\n", die_seconds);
 	printf("Eat time is %lld ms\n", eat_seconds);
@@ -58,4 +57,9 @@ void set_param(char **av, int ac)
 		printf("food is unlimited\n");
 	else
 		printf("food limit is %lld\n", food_limit);
+}
+
+sem_t	*ft_sem_open(const char *str, int num)
+{
+	return (sem_open(str, O_CREAT | O_EXCL, 0644, num));
 }

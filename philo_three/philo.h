@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:39:49 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 12:17:58 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 19:42:16 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 # define R_FORK "right"
 
 long long		num_philo;				// number of philosophers
-long long		num_can_eat;			// num_philo - 1 for token system
 long long		sleep_seconds;			// time to sleep
 long long		eat_seconds;			// time to eat
 long long		die_seconds;			// time to die
@@ -104,4 +103,12 @@ void			grab_forks(t_philosophers *philo);
 void			drop_forks(t_philosophers *philo);
 
 char			*make_semaphore(const char *str, int i);
+
+//static int		init_philo(t_philosophers *philo);
+//static int		init_semaphore(void);
+
+//int				init_philo(t_philosophers *philo);
+//int				init_semaphore(void);
+sem_t			*ft_sem_open(const char *str, int num);
+
 #endif

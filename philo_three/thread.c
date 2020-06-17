@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:58:10 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 12:20:56 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 17:12:30 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ void eat(t_philosophers *philo)
 	philo->eat_count++;
 	philo->state = 2;
 	sem_post(philo->sem);
-	//sem_post(philo->)
+	sem_post(philo->food_limit);
 }
