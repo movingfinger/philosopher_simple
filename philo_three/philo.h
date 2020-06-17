@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:39:49 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 19:42:16 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 21:43:21 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@
 #include <string.h>
 #include <signal.h>
 #include <sys/time.h>
-//#include <sys/stat.h>
 #include <fcntl.h>
 
-//#define DELAY 5000
 #define ERR_NEG "Negative numbers are not allowed! You need to type positive numbers only!\n"
 #define ERR_NONUM "You must type nubmers only!\n"
 #define ERR_ARG "Argument should be 5 or 6\n"\
@@ -36,8 +34,6 @@
 "4. Eat count for each philosophers [Optional]"
 #define ERR_NUMMAX "Philosophers should not be over 100!"
 #define ERR_INTMAX "Argument 2 ~ 6 should not be over int max!"
-# define L_FORK "left"
-# define R_FORK "right"
 
 long long		num_philo;				// number of philosophers
 long long		sleep_seconds;			// time to sleep
@@ -54,14 +50,11 @@ sem_t			*sem_dead_report;
 
 /*
 ** state 0: eating
-** state 1: thinking
-** state 2: sleeping
-** state 3: died timeover
-** state 4: died no food
-** state 5: grab fork
-** state 6: infinite food
-** state 7: check food left
-** state 8: food limit reached
+** state 1: sleeping
+** state 2: fork
+** state 3: thinking
+** state 4: died
+** state 5: process done
 */
 
 typedef struct	s_philosophers
@@ -71,13 +64,11 @@ typedef struct	s_philosophers
 	int			state;
 	long long	last_time;
 	long long	limit;
-	long long	*time;
-	int			*death;
 	int			lfork;
 	int			rfork;
 	pid_t		pid;
 	sem_t		*sem;
-	sem_t		*food_limit;
+	sem_t		*food_count;
 }				t_philosophers;
 
 void			grab_fork (t_philosophers *philo, int fork, int side);
@@ -104,11 +95,8 @@ void			drop_forks(t_philosophers *philo);
 
 char			*make_semaphore(const char *str, int i);
 
-//static int		init_philo(t_philosophers *philo);
-//static int		init_semaphore(void);
-
-//int				init_philo(t_philosophers *philo);
-//int				init_semaphore(void);
+int				init_philo(t_philosophers *philo);
+int				init_semaphore(void);
 sem_t			*ft_sem_open(const char *str, int num);
 
 #endif

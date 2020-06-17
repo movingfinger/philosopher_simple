@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:59:28 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 12:07:20 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/17 21:43:45 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ size_t ft_strlcat (char *dst, const char *src, size_t dstsize)
 	n = dlen;
 	if (dstsize <= 0)
 		return (ft_strlen(src));
-	//while (src[i] && dlen < dstsize - 1)
 	while (src[i] && dlen < dstsize)
 	{
 		dst[dlen] = src[i];
