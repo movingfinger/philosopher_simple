@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:39:49 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 22:32:26 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/26 18:11:54 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct	s_philosophers
 void			grab_fork (t_philosophers *philo, int fork, int side);
 void			down_forks (int, int);
 
-void			eat(t_philosophers *philo);
 void			Spawn(t_philosophers *philo);
 
 long long		timer(void);
@@ -84,7 +83,6 @@ long long		ft_atol (const char *str);
 size_t			ft_strlen(const char *str);
 size_t			ft_strlcat (char *dst, const char *src, size_t dstsize);
 unsigned int	ft_nbrlen(long long nbr, int base);
-char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strnew(size_t size);
 char			*ft_ltoa_base(long long nbr, int base);
 void			set_param(char **av, int ac);
@@ -92,13 +90,14 @@ void			set_param(char **av, int ac);
 void			print_message(t_philosophers *philo, int num);
 void			get_message(int num);
 void			print_message(t_philosophers *philo, int num);
+char			*make_semaphore(const char *str, int i);
 
 void			grab_forks(t_philosophers *philo);
 void			drop_forks(t_philosophers *philo);
+void			eat(t_philosophers *philo);
 
 int				init_philo(t_philosophers *philo);
 int				init_semaphore(void);
-char			*make_semaphore(const char *str, int i);
 int				clear_philosopher(t_philosophers *philo);
 sem_t			*ft_sem_open(const char *str, int num);
 

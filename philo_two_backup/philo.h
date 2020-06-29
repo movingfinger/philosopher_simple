@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 14:39:49 by sako              #+#    #+#             */
-/*   Updated: 2020/06/26 10:04:28 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/27 21:58:10 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <assert.h>
-# include <string.h>
+# include <semaphore.h>
 # include <sys/time.h>
+# include <fcntl.h>
 
 # define ERR_NEG	"Negative numbers are not allowed! "\
 					"You need to type positive numbers only!\n"
@@ -42,14 +43,6 @@
 # define ST_DIE		4
 # define ST_DONE	5
 
-// number of philosophers
-// time to sleep
-// time to eat
-// time to die
-// number of times each philosopher must eat. If -1, it means not defined.
-// time at the beginning of program
-// mutex for fork.
-
 struct s_status;
 
 typedef struct		s_philosophers
@@ -62,8 +55,8 @@ typedef struct		s_philosophers
 	int				l_fork;
 	int				r_fork;
 	struct s_status	*status;
-	pthread_mutex_t	m_mutex;
-	pthread_mutex_t	m_eat;
+	sem_t			*sem_mutex;
+	sem_t			*sem_eat;
 }					t_philosophers;
 
 //	check_time is check whether philosopher failed to eat food in time or not.
@@ -77,14 +70,14 @@ typedef struct		s_status
 	long long		time_to_eat;
 	long long		time_to_sleep;
 	t_philosophers	*philo;
-	pthread_mutex_t	m_message;
-	pthread_mutex_t	m_dead;
-	pthread_mutex_t	*m_fork;
+	sem_t			*sem_message;
+	sem_t			*sem_dead;
+	sem_t			*sem_fork;
 }					t_status;
 
-void				*check_food_count(void *temp_status);
-void				*check_philosopher(void *temp_philo);
-void				*philosopher (void *temp_philo);
+void				*check_count(void *temp_status);
+void				*check_philosopher(void *t_philo);
+void				*philosopher (void *t_philo);
 void				do_philosopher(t_status *status);
 void				free_status(t_status *status);
 
@@ -93,15 +86,22 @@ void				grab_fork (t_philosophers *philo);
 void				down_forks (t_philosophers *philo);
 
 void				error_check(char **av);
-void				init_mutex(t_status *status);
+void				init_semaphore(t_status *status);
 void				init_philo(t_status *status);
 void				set_param(int ac, char **av, t_status *status);
+sem_t				*ft_sem_open(const char *str, int num);
 
 void				ft_print_error(const char *str);
 void				print_input(t_status *status);
 void				print_status(t_philosophers *philo, int stat);
+char				*make_semaphore(const char *str, int i);
 
 long long			ft_atol (const char *str);
+size_t				ft_strlen(const char *str);
+size_t				ft_strlcat (char *dst, const char *src, size_t dstsize);
+unsigned int		ft_nbrlen(long long num, int base);
+char				*ft_strnew(size_t size);
+char				*ft_ltoa_base(long long nbr, int base);
 long long			timer(void);
 
 #endif

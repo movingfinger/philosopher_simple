@@ -6,13 +6,13 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:58:10 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 21:38:24 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/26 18:11:05 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void grab_forks(t_philosophers *philo)
+void	grab_forks(t_philosophers *philo)
 {
 	sem_wait(sem_fork);
 	print_message(philo, 2);
@@ -20,7 +20,7 @@ void grab_forks(t_philosophers *philo)
 	print_message(philo, 2);
 }
 
-void drop_forks(t_philosophers *philo)
+void	drop_forks(t_philosophers *philo)
 {
 	print_message(philo, 1);
 	sem_post(sem_fork);
@@ -28,7 +28,7 @@ void drop_forks(t_philosophers *philo)
 	usleep(sleep_seconds * 1000);
 }
 
-void eat(t_philosophers *philo)
+void	eat(t_philosophers *philo)
 {
 	sem_wait(philo->sem);
 	philo->state = 0;

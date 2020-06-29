@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:39:41 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 22:37:10 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/26 18:11:28 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,21 @@ void print_message(t_philosophers *philo, int num)
 	if (num < 4)
 		sem_post(sem_dead_report);
 	sem_post(sem_print);
+}
+
+char	*make_semaphore(const char *str, int i)
+{
+	char	*c_sem;
+	char	*pos;
+	int		len;
+
+	pos = ft_ltoa_base(i, 10);
+	len = ft_strlen(str) + ft_strlen(pos);
+	c_sem = ft_strnew(len);
+	ft_strlcat(c_sem, str, len);
+	ft_strlcat(c_sem, pos, len);
+	sem_unlink(c_sem);
+	if (pos)
+		free(pos);
+	return (c_sem);
 }

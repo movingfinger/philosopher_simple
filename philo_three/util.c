@@ -6,13 +6,13 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:59:28 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 22:20:45 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/26 18:07:54 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long ft_atol (const char *str)
+long long		ft_atol (const char *str)
 {
 	int i;
 	long long res;
@@ -29,7 +29,7 @@ long long ft_atol (const char *str)
 	return (res);
 }
 
-size_t ft_strlen(const char *str)
+size_t			ft_strlen(const char *str)
 {
 	int i;
 	for (i = 0; str[i]; i++)
@@ -37,7 +37,7 @@ size_t ft_strlen(const char *str)
 	return (i);
 }
 
-size_t ft_strlcat (char *dst, const char *src, size_t dstsize)
+size_t			ft_strlcat (char *dst, const char *src, size_t dstsize)
 {
 	size_t i;
 	size_t n;
@@ -75,21 +75,7 @@ unsigned int	ft_nbrlen(long long num, int base)
 	return (len);
 }
 
-char	*ft_strcpy(char *dst, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-char	*ft_strnew(size_t size)
+char			*ft_strnew(size_t size)
 {
 	char	*s;
 

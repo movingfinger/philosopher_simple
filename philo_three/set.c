@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 18:18:01 by sako              #+#    #+#             */
-/*   Updated: 2020/06/17 22:32:10 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/26 18:11:25 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void set_param(char **av, int ac)
 		food_limit = ft_atol(av[5]);
 	error_check(av);
 	num_philo = ft_atol(av[1]);
+	if (num_philo == 0)
+		ft_print_error("No philosopher there!");
 	die_seconds = ft_atol(av[2]);
 	eat_seconds = ft_atol(av[3]);
 	sleep_seconds = ft_atol(av[4]);
@@ -83,8 +85,8 @@ int init_philo(t_philosophers *philo)
 		if (!(philo[i].food_count = ft_sem_open(c_sem, 0)))
 			ft_print_error("Failed to generate food limit semaphore!");
 		i++;
+		free(c_sem);
 	}
-	free(c_sem);
 	return (0);
 }
 
@@ -103,22 +105,6 @@ int init_semaphore(void)
 	if (!(sem_dead_report = ft_sem_open("SEM_DEAD_REPORT", 1)))
 		ft_print_error("Fail to make semaphore for report dead");	
 	return (0);
-}
-
-char	*make_semaphore(const char *str, int i)
-{
-	char	*c_sem;
-	char	*pos;
-	int		len;
-
-	pos = ft_ltoa_base(i, 10);
-	len = ft_strlen(str) + ft_strlen(pos);
-	c_sem = ft_strnew(len);
-	ft_strlcat(c_sem, str, len);
-	ft_strlcat(c_sem, pos, len);
-	sem_unlink(c_sem);
-	free(pos);
-	return (c_sem);
 }
 
 int clear_philosopher(t_philosophers *philo)

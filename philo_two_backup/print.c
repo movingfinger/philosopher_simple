@@ -6,7 +6,7 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:39:41 by sako              #+#    #+#             */
-/*   Updated: 2020/06/27 21:07:47 by sako             ###   ########.fr       */
+/*   Updated: 2020/06/27 14:53:52 by sako             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ void	print_input(t_status *status)
 		printf("food limit per philosophers is %lld\n", status->must_eat);
 }
 
-int	print_status(t_philosophers *philo, int stat)
+void	print_status(t_philosophers *philo, int stat)
 {
-	static int	finish = 0;
-	int 		ret;
+	static int finish = 0;
 
 	if (sem_wait(philo->status->sem_message) != 0)
 		ft_print_error("Failed to wait message!");
-	ret = 1;
 	if (finish == 0)
 	{
 		printf("%lld\t", timer() - philo->status->start_time);
@@ -57,11 +55,8 @@ int	print_status(t_philosophers *philo, int stat)
 				printf(" died\n");
 		else if (stat == ST_DONE)
 				printf(" finished to eat given food\n");
-		ret = 0;
 	}
-	if (sem_post(philo->status->sem_message))
-		return (1);
-	return (ret);
+	sem_post(philo->status->sem_message);
 }
 
 char	*make_semaphore(const char *str, int i)
