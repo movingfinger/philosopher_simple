@@ -6,7 +6,11 @@
 /*   By: sako <sako@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 10:58:10 by sako              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/06/29 11:05:02 by sako             ###   ########.fr       */
+=======
+/*   Updated: 2020/06/17 08:02:34 by sako             ###   ########.fr       */
+>>>>>>> 8b0f2ab3287f884a1b03e5ae11ddd275de945a73
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +18,7 @@
 
 void	*check_count(void *temp_status)
 {
+<<<<<<< HEAD
 	t_status *status;
 
 	status = (t_status *)temp_status;
@@ -26,6 +31,23 @@ void	*check_count(void *temp_status)
 	if (sem_post(status->sem_dead))
 		return ((void *)0);
 	return ((void *)0);
+=======
+	printf("%lld timestamp\n", timestamp[0]);
+	if (food_limit == -1)
+	{
+		philo->state = 6;
+		printf("%lld ms - Philosopher %d food left infinite\n", timestamp[philo->pos], philo->pos);
+		philo->eat_count++;
+	}
+	else
+	{
+		philo->state = 7;
+		printf("%lld ms - Philosopher %d food left %d\n", timestamp[philo->pos], philo->pos, philo->eat_count);
+		philo->eat_count--;
+	}
+	
+	return (philo->eat_count);
+>>>>>>> 8b0f2ab3287f884a1b03e5ae11ddd275de945a73
 }
 
 static void	*check_philosopher(void *t_philo)
@@ -109,6 +131,7 @@ void	free_status(t_status *status)
 {
 	char *c_sem;
 
+<<<<<<< HEAD
 	sem_unlink("SEM_FORK");
 	sem_unlink("SEM_MESSAGE");
 	sem_unlink("SEM_DEAD");
@@ -126,3 +149,18 @@ void	free_status(t_status *status)
 	if (c_sem)
 		free(c_sem);
 }
+=======
+	id = philo->pos;
+	printf("%lld ms - Philosopher %d has taken a fork\n", timestamp[id], id);
+	sem_wait(philo->sem);
+	printf("%lld ms - Philosopher %d has taken a fork\n", timestamp[id], id);
+	sem_wait(philo->sem);
+	philo->state = 0;
+	usleep(eat_seconds * 1000);
+	pthread_create(&philo->thread_philo_time, NULL, philo_life, philo);
+	sem_post(philo->sem);
+	sem_post(philo->sem);
+	sem_close(philo->sem);
+	printf("%lld ms - Philosopher %d eating\n", timestamp[id], id);
+}
+>>>>>>> 8b0f2ab3287f884a1b03e5ae11ddd275de945a73
